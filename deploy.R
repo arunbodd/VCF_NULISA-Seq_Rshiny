@@ -5,6 +5,11 @@
 # Load the rsconnect package
 library(rsconnect)
 
+# Ensure required packages are installed locally
+if (!requireNamespace("markdown", quietly = TRUE)) {
+  install.packages("markdown")
+}
+
 # Set the application name
 app_name <- "VCP_Proteomics_Analysis"
 
@@ -16,6 +21,7 @@ deployApp(
   appFiles = c(                   # Files to include in the deployment
     "app.R",
     "about.md",
+    "init.R",
     "data/Control_VCP_metadata.csv",
     "data/Controlonly_samples.csv", 
     "data/VCP_samples.csv"

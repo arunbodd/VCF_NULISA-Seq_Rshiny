@@ -1,7 +1,7 @@
-#!/usr/bin/env Rscript
-
-# This file lists all package dependencies for the app
-# Run this script to install all required packages
+# init.R
+#
+# This script is executed during the application startup.
+# It ensures all required packages are installed on the server.
 
 # List of required packages
 required_packages <- c(
@@ -36,10 +36,7 @@ required_packages <- c(
 # Function to check and install missing packages
 install_if_missing <- function(pkg) {
   if (!requireNamespace(pkg, quietly = TRUE)) {
-    install.packages(pkg)
-    cat(paste0("Installed package: ", pkg, "\n"))
-  } else {
-    cat(paste0("Package already installed: ", pkg, "\n"))
+    install.packages(pkg, repos = "https://cran.rstudio.com/")
   }
 }
 
@@ -47,5 +44,3 @@ install_if_missing <- function(pkg) {
 for (pkg in required_packages) {
   install_if_missing(pkg)
 }
-
-cat("All required packages are installed.\n")
