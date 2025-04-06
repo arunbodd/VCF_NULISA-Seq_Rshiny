@@ -32,20 +32,56 @@ if (Sys.getenv("SHINYAPPS_NAME") != "" &&
   # stop("Missing shinyapps.io credentials")
 }
 
-# Deploy the app with data directory included
-deployApp(
-  appName = "VCF-Proteomics-Analysis",
-  appTitle = "VCF vs Control Proteomics Analysis",
-  appFiles = c(
-    "app.R",
-    "config.R",
-    "about.md",
-    "README.md",
-    "data"  # Include the entire data directory
-  ),
-  launch.browser = TRUE
+# Check if required files exist
+required_files <- c("app.R", "config.R", "about.md", "README.md")
+missing_files <- required_files[!file.exists(required_files)]
+
+if (length(missing_files) > 0) {
+  stop("Missing required files: ", paste(missing_files, collapse = ", "))
+}
+
+# Check if data directory exists and contains required files
+if (!dir.exists("data")) {
+  stop("Data directory not found. Please create a 'data' directory with the required data files.")
+}
+
+data_files <- c(
+  "data/Controlonly_samples.csv",
+  "data/VCP_samples.csv",
+  "data/Control_VCP_metadata.csv"
 )
 
-# Print success message
-cat("\nDeployment completed!\n")
-cat("Your app should be available at: https://arunbodd.shinyapps.io/VCF-Proteomics-Analysis/\n")
+missing_data_files <- data_files[!file.exists(data_files)]
+
+if (length(missing_data_files) > 0) {
+  stop("Missing data files: ", paste(missing_data_files, collapse = ", "))
+}
+
+# Deploy the app with data directory included
+tryCatch({
+  deployApp(
+    appName = "VCF-Proteomics-Analysis",
+    appTitle = "VCF vs Control Proteomics Analysis",
+    appFiles = c(
+      "app.R",
+      "config.R",
+      "about.md",
+      "README.md",
+      "data"  # Include the entire data directory
+    ),
+    launch.browser = TRUE
+  )
+  
+  # Print success message
+  cat("\nDeployment completed!\n")
+  cat("Your app should be available at: https://arunbodd.shinyapps.io/VCF-Proteomics-Analysis/\n")
+}, error = function(e) {
+  cat("\nError during deployment:\n")
+  print(e)
+  cat("\nTroubleshooting tips:\n")
+  cat("1. Check that all required files exist\n")
+  cat("2. Ensure your data files are in the 'data' directory\n")
+  cat("3. Verify your shinyapps.io credentials are correct\n")
+  cat("4. Check your internet connection\n")
+  cat("5. Try running the app locally first: shiny::runApp()\n")
+})
