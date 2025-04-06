@@ -21,6 +21,7 @@ library(ggpubr)
 library(ggthemes)
 library(data.table)
 library(corrplot)
+library(markdown)  # Required for includeMarkdown function
 
 # Source configuration file
 source("config.R")

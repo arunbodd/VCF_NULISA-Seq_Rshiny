@@ -1,9 +1,19 @@
 # Deployment script for VCF vs Control Proteomics Analysis app
 
 # Load required packages
-if (!require("rsconnect")) {
-  install.packages("rsconnect")
+required_packages <- c("rsconnect", "markdown", "shiny", "shinydashboard", "dplyr", "ggplot2", 
+                      "DT", "pROC", "reshape2", "plotly", "ggrepel", "stringr", "tidyr", 
+                      "pheatmap", "RColorBrewer", "ComplexHeatmap", "circlize", "STRINGdb", 
+                      "igraph", "ggpubr", "ggthemes", "data.table", "corrplot")
+
+# Check and install missing packages
+missing_packages <- required_packages[!sapply(required_packages, requireNamespace, quietly = TRUE)]
+if (length(missing_packages) > 0) {
+  cat("Installing missing packages:", paste(missing_packages, collapse = ", "), "\n")
+  install.packages(missing_packages)
 }
+
+# Load rsconnect
 library(rsconnect)
 
 # IMPORTANT: Never store credentials in your code!
