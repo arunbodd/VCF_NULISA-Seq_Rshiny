@@ -1,0 +1,31 @@
+# R specific
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+*.Rproj
+
+# Shiny token
+rsconnect/
+*.dcf
+
+# Environment variables and credentials
+.Renviron
+.env
+*.key
+deploy_credentials.R
+
+# OS specific
+.DS_Store
+Thumbs.db
+
+# Editor specific
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Do NOT ignore the data directory - we want to include it in deployment
+# But you may want to uncomment this for your own repository if your data is sensitive
+# data/
