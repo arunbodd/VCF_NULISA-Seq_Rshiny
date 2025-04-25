@@ -63,7 +63,7 @@ shiny::runApp()
 
 A live demo of the application is available at:
 
-**[VCF vs Control Proteomics Analysis App](https://arunbodd.shinyapps.io/VCF-Proteomics-Analysis/)**
+**[VCF vs Control Proteomics Analysis App](https://arunbodd.shinyapps.io/VCP_Proteomics_Analysis/)**
 
 ## Data Format Requirements
 
